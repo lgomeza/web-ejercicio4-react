@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import { CharacterCard } from './components/Card';
+import { Row, Col } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch("https://rickandmortyapi.com/api/character")
+    .then(response => response.json())
+    .then(data => setData(data.results))
+  },[])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1 className="px-4 pt-1">Rick and Morty</h1>
+      <h4 className="px-4">Realizado por: Luis Gómez Amado</h4>
+      <Row xs={1} md={3} lg={6} className="g-4 mt-2 px-4">
+        {data && data.map((element) => {
+          return <Col>
+            <CharacterCard
+              image={element.image}
+              name={element.name}
+              gender={element.gender}
+              status={element.status}
+            />
+          </Col>
+        })}
+      </Row>
+    </>
   );
 }
 
