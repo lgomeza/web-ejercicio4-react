@@ -19,8 +19,9 @@ function App() {
       <h4 className="px-4">Realizado por: Luis Gómez Amado</h4>
       <Row xs={1} md={3} lg={6} className="g-4 mt-2 px-4">
         {data && data.map((element) => {
-          return <Col>
+          return <Col key={"col-"+element.id.toString()}>
             <CharacterCard
+              key={element.id.toString()}
               image={element.image}
               name={element.name}
               gender={element.gender}
